@@ -1,6 +1,6 @@
 {
   "name": "vscode-plugin-suite",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "components": [
     {
       "id": "HengXin666.agent-view",
@@ -13,6 +13,10 @@
     {
       "id": "HengXin666.window-deck",
       "repository": "HengXin666/vscode-window-switch"
+    },
+    {
+      "id": "HengXin666.open-new-window",
+      "repository": "HengXin666/open-new-window"
     }
   ]
 }

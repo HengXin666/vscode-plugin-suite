@@ -42,6 +42,12 @@ jobs:
           repository: HengXin666/vscode-window-switch
           path: vscode-window-switch
 
+      - name: Checkout Open in New Window
+        uses: actions/checkout@v4
+        with:
+          repository: HengXin666/open-new-window
+          path: open-new-window
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -51,6 +57,7 @@ jobs:
             vscode-extension-github-updater/package-lock.json
             vscode-agent-view/package-lock.json
             vscode-window-switch/package-lock.json
+            open-new-window/package-lock.json
 
       - name: Build suite
         working-directory: vscode-plugin-suite

@@ -1,10 +1,11 @@
 # HengXin VS Code Plugin Suite
 
-这个仓库统一构建和发布三个 VS Code 插件：
+这个仓库统一构建和发布四个 VS Code 插件：
 
 - Agent View
 - String Replacer
 - Window Deck
+- Open in New Window
 
 三个插件仍然保持独立版本、独立 GitHub Release 和独立自动更新；Suite Release 则提供一次安装全部组件的压缩包。
 
@@ -35,6 +36,7 @@ vscode-extension-github-updater/
 vscode-agent-view/
 vscode-string-replacer/
 vscode-window-switch/
+open-new-window/
 vscode-plugin-suite/
 ```
 

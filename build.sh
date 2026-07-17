@@ -8,8 +8,9 @@ updater="$workspace_root/vscode-extension-github-updater"
 agent_view="$workspace_root/vscode-agent-view"
 string_replacer="$workspace_root/vscode-string-replacer"
 window_deck="$workspace_root/vscode-window-switch"
+open_new_window="$workspace_root/open-new-window"
 
-for project in "$updater" "$agent_view" "$string_replacer" "$window_deck"; do
+for project in "$updater" "$agent_view" "$string_replacer" "$window_deck" "$open_new_window"; do
   if [[ ! -x "$project/build.sh" ]]; then
     echo "Missing executable build.sh: $project/build.sh" >&2
     exit 1
@@ -20,6 +21,7 @@ done
 "$agent_view/build.sh"
 "$string_replacer/build.sh"
 "$window_deck/build.sh"
+"$open_new_window/build.sh"
 
 version="$(node -p "require('./suite.json').version")"
 bundle_dir="$PWD/dist/bundle"
@@ -38,6 +40,7 @@ copy_latest_vsix() {
 copy_latest_vsix "$agent_view"
 copy_latest_vsix "$string_replacer"
 copy_latest_vsix "$window_deck"
+copy_latest_vsix "$open_new_window"
 cp install.sh install.ps1 suite.json "$bundle_dir/"
 
 tar -C "$bundle_dir" -czf "$PWD/dist/vscode-plugin-suite-$version.tar.gz" .
