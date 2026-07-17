@@ -1,0 +1,85 @@
+name: Release Plugin Suite
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout suite
+        uses: actions/checkout@v4
+        with:
+          path: vscode-plugin-suite
+
+      - name: Checkout shared updater
+        uses: actions/checkout@v4
+        with:
+          repository: HengXin666/vscode-extension-github-updater
+          path: vscode-extension-github-updater
+
+      - name: Checkout Agent View
+        uses: actions/checkout@v4
+        with:
+          repository: HengXin666/vscode-agent-view
+          path: vscode-agent-view
+
+      - name: Checkout String Replacer
+        uses: actions/checkout@v4
+        with:
+          repository: HengXin666/vscode-string-replacer
+          path: vscode-string-replacer
+
+      - name: Checkout Window Deck
+        uses: actions/checkout@v4
+        with:
+          repository: HengXin666/vscode-window-switch
+          path: vscode-window-switch
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: |
+            vscode-extension-github-updater/package-lock.json
+            vscode-agent-view/package-lock.json
+            vscode-window-switch/package-lock.json
+
+      - name: Build suite
+        working-directory: vscode-plugin-suite
+        run: ./build.sh
+
+      - name: Read suite version
+        id: suite
+        working-directory: vscode-plugin-suite
+        run: |
+          VERSION="$(node -p "require('./suite.json').version")"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "tag=v$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Create or update tag
+        working-directory: vscode-plugin-suite
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git tag -f "${{ steps.suite.outputs.tag }}" "$GITHUB_SHA"
+          git push -f origin "${{ steps.suite.outputs.tag }}"
+
+      - name: Publish suite release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.suite.outputs.tag }}
+          name: HengXin VS Code Plugin Suite ${{ steps.suite.outputs.version }}
+          files: |
+            vscode-plugin-suite/dist/*.vsix
+            vscode-plugin-suite/dist/*.zip
+            vscode-plugin-suite/dist/*.tar.gz
+          generate_release_notes: true
+          make_latest: true

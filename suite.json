@@ -1,0 +1,18 @@
+{
+  "name": "vscode-plugin-suite",
+  "version": "1.0.0",
+  "components": [
+    {
+      "id": "HengXin666.agent-view",
+      "repository": "HengXin666/vscode-agent-view"
+    },
+    {
+      "id": "HengXin666.string-replacer",
+      "repository": "HengXin666/vscode-string-replacer"
+    },
+    {
+      "id": "HengXin666.window-deck",
+      "repository": "HengXin666/vscode-window-switch"
+    }
+  ]
+}
