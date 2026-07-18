@@ -2,7 +2,7 @@
   "name": "hengxin-plugin-suite",
   "displayName": "HengXin Plugin Suite",
   "description": "Unified update manager for the HengXin VS Code plugin suite.",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "publisher": "HengXin666",
   "license": "MIT",
   "repository": {
