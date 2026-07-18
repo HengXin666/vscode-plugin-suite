@@ -28,11 +28,16 @@ export async function activate(context: vscode.ExtensionContext): Promise<void> 
     displayName: "HengXin Plugin Suite",
     stateKeyPrefix: "hengxinPluginSuite.updater",
     tokenProvider: () => context.secrets.get(githubTokenKey),
-    components: manifest.components.map((component) => ({
-      extensionId: component.id,
-      displayName: component.displayName,
-      assetPattern: new RegExp(`^${escapeRegExp(component.assetPrefix)}-\\d+(?:\\.\\d+){1,3}(?:-[0-9A-Za-z.-]+)?\\.vsix$`, "i")
-    }))
+    components: manifest.components.map((component) => {
+      const releaseRepository = parseRepository(component.repository);
+      return {
+        extensionId: component.id,
+        displayName: component.displayName,
+        assetPattern: new RegExp(`^${escapeRegExp(component.assetPrefix)}-\\d+(?:\\.\\d+){1,3}(?:-[0-9A-Za-z.-]+)?\\.vsix$`, "i"),
+        releaseOwner: releaseRepository.owner,
+        releaseRepo: releaseRepository.repo
+      };
+    })
   });
   context.subscriptions.push(updater);
 
@@ -106,4 +111,12 @@ async function showComponents(manifest: SuiteManifest): Promise<void> {
 
 function escapeRegExp(value: string): string {
   return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function parseRepository(repository: string): { owner: string; repo: string } {
+  const [owner, repo] = repository.split("/");
+  if (!owner || !repo) {
+    throw new Error(`无效的 GitHub 仓库：${repository}`);
+  }
+  return { owner, repo };
 }

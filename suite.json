@@ -1,6 +1,6 @@
 {
   "name": "vscode-plugin-suite",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "components": [
     {
       "id": "HengXin666.agent-view",

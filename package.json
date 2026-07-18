@@ -2,7 +2,7 @@
   "name": "hengxin-plugin-suite",
   "displayName": "HengXin Plugin Suite",
   "description": "Unified update manager for the HengXin VS Code plugin suite.",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "publisher": "HengXin666",
   "license": "MIT",
   "repository": {
@@ -12,7 +12,9 @@
   "engines": {
     "vscode": "^1.90.0"
   },
-  "categories": ["Extension Packs"],
+  "categories": [
+    "Extension Packs"
+  ],
   "activationEvents": [
     "onStartupFinished",
     "onCommand:hengxinSuite.checkForUpdates",
@@ -20,7 +22,9 @@
     "onCommand:hengxinSuite.showComponents"
   ],
   "main": "./out/extension.js",
-  "extensionKind": ["ui"],
+  "extensionKind": [
+    "ui"
+  ],
   "extensionPack": [
     "HengXin666.agent-view",
     "HengXin666.string-replacer",

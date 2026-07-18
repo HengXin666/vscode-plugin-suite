@@ -9,7 +9,7 @@
 
 各组件仍然保持独立版本、独立 GitHub Release 和独立更新；Suite Release 同时提供一次安装全部组件的压缩包和 `HengXin Plugin Suite` 管理扩展。
 
-安装 Suite Manager 后，状态栏会显示 `HengXin Suite`：点击即可统一检查 Suite Release，比较所有已安装组件版本，并一次安装全部有更新的 VSIX。也可以在命令面板运行 `HengXin Plugin Suite: 检查整套更新`。默认每 24 小时自动检查一次；新增组件只需加入 `suite.json` 并随 Suite Release 发布对应 VSIX。
+安装 Suite Manager 后，状态栏会显示 `HengXin Suite`：点击后会直接检查 `suite.json` 中每个组件各自仓库的最新 Release，比较所有已安装组件版本，并一次安装全部有更新的 VSIX；不再依赖可能滞后的 Suite Release。也可以在命令面板运行 `HengXin Plugin Suite: 检查整套更新`。默认每 24 小时自动检查一次；公开仓库检查不消耗 GitHub REST API 配额，配置 Token 仅作为页面检查失败后的 API 回退。
 
 ## 安装
 
