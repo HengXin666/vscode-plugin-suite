@@ -54,6 +54,7 @@ jobs:
           node-version: 20
           cache: npm
           cache-dependency-path: |
+            vscode-plugin-suite/package-lock.json
             vscode-extension-github-updater/package-lock.json
             vscode-agent-view/package-lock.json
             vscode-window-switch/package-lock.json

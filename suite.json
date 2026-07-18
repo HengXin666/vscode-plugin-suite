@@ -1,22 +1,36 @@
 {
   "name": "vscode-plugin-suite",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "components": [
     {
       "id": "HengXin666.agent-view",
+      "displayName": "Agent View",
+      "assetPrefix": "agent-view",
       "repository": "HengXin666/vscode-agent-view"
     },
     {
       "id": "HengXin666.string-replacer",
+      "displayName": "String Replacer",
+      "assetPrefix": "string-replacer",
       "repository": "HengXin666/vscode-string-replacer"
     },
     {
       "id": "HengXin666.window-deck",
+      "displayName": "Window Deck",
+      "assetPrefix": "window-deck",
       "repository": "HengXin666/vscode-window-switch"
     },
     {
       "id": "HengXin666.open-new-window",
+      "displayName": "Open in New Window",
+      "assetPrefix": "open-new-window",
       "repository": "HengXin666/open-new-window"
+    },
+    {
+      "id": "HengXin666.hengxin-plugin-suite",
+      "displayName": "Suite Manager",
+      "assetPrefix": "hengxin-plugin-suite",
+      "repository": "HengXin666/vscode-plugin-suite"
     }
   ]
 }

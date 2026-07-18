@@ -18,6 +18,16 @@ for project in "$updater" "$agent_view" "$string_replacer" "$window_deck" "$open
 done
 
 "$updater/build.sh"
+if [[ ! -d node_modules ]]; then
+  if [[ -f package-lock.json ]]; then
+    npm ci
+  else
+    npm install
+  fi
+fi
+npm run check
+npm run package
+
 "$agent_view/build.sh"
 "$string_replacer/build.sh"
 "$window_deck/build.sh"
@@ -41,6 +51,7 @@ copy_latest_vsix "$agent_view"
 copy_latest_vsix "$string_replacer"
 copy_latest_vsix "$window_deck"
 copy_latest_vsix "$open_new_window"
+cp "$PWD/hengxin-plugin-suite-$version.vsix" "$bundle_dir/"
 cp install.sh install.ps1 suite.json "$bundle_dir/"
 
 tar -C "$bundle_dir" -czf "$PWD/dist/vscode-plugin-suite-$version.tar.gz" .

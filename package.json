@@ -1,0 +1,65 @@
+{
+  "name": "hengxin-plugin-suite",
+  "displayName": "HengXin Plugin Suite",
+  "description": "Unified update manager for the HengXin VS Code plugin suite.",
+  "version": "1.2.0",
+  "publisher": "HengXin666",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/HengXin666/vscode-plugin-suite.git"
+  },
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": ["Extension Packs"],
+  "activationEvents": [
+    "onStartupFinished",
+    "onCommand:hengxinSuite.checkForUpdates",
+    "onCommand:hengxinSuite.showComponents"
+  ],
+  "main": "./out/extension.js",
+  "extensionKind": ["ui"],
+  "extensionPack": [
+    "HengXin666.agent-view",
+    "HengXin666.string-replacer",
+    "HengXin666.window-deck",
+    "HengXin666.open-new-window"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "hengxinSuite.checkForUpdates",
+        "title": "HengXin Plugin Suite: 检查整套更新",
+        "category": "HengXin Plugin Suite"
+      },
+      {
+        "command": "hengxinSuite.showComponents",
+        "title": "HengXin Plugin Suite: 查看组件版本",
+        "category": "HengXin Plugin Suite"
+      }
+    ],
+    "configuration": {
+      "title": "HengXin Plugin Suite",
+      "properties": {
+        "hengxinSuite.autoCheckUpdates": {
+          "type": "boolean",
+          "default": true,
+          "description": "每 24 小时统一检查 Suite Release 中所有组件的更新。"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "rm -rf out && tsc -p ./ && mkdir -p out/vendor && cp ../vscode-extension-github-updater/dist/index.js out/vendor/githubUpdater.js",
+    "check": "npm run compile",
+    "vscode:prepublish": "npm run compile",
+    "package": "vsce package --no-dependencies"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.8",
+    "@types/vscode": "^1.90.0",
+    "typescript": "^5.4.5",
+    "vsce": "^2.15.0"
+  }
+}

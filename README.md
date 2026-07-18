@@ -7,7 +7,9 @@
 - Window Deck
 - Open in New Window
 
-三个插件仍然保持独立版本、独立 GitHub Release 和独立自动更新；Suite Release 则提供一次安装全部组件的压缩包。
+各组件仍然保持独立版本、独立 GitHub Release 和独立更新；Suite Release 同时提供一次安装全部组件的压缩包和 `HengXin Plugin Suite` 管理扩展。
+
+安装 Suite Manager 后，状态栏会显示 `HengXin Suite`：点击即可统一检查 Suite Release，比较所有已安装组件版本，并一次安装全部有更新的 VSIX。也可以在命令面板运行 `HengXin Plugin Suite: 检查整套更新`。默认每 24 小时自动检查一次；新增组件只需加入 `suite.json` 并随 Suite Release 发布对应 VSIX。
 
 ## 安装
 
@@ -46,4 +48,4 @@ vscode-plugin-suite/
 ./build.sh
 ```
 
-产物位于 `dist/`。
+产物位于 `dist/`，其中包含四个组件 VSIX、Suite Manager VSIX、安装脚本和套件清单。

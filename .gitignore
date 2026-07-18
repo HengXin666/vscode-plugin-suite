@@ -1,4 +1,7 @@
 dist/
+out/
+node_modules/
+*.vsix
 *.zip
 *.tar.gz
 .DS_Store

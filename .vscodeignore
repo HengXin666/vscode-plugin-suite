@@ -1,0 +1,11 @@
+.git/**
+.github/**
+src/**
+node_modules/**
+dist/**
+*.vsix
+install.sh
+install.ps1
+build.sh
+tsconfig.json
+package-lock.json
