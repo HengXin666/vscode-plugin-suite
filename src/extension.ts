@@ -18,6 +18,7 @@ type SuiteManifest = {
 };
 
 let updater: GitHubVsixSuiteUpdateManager;
+const githubTokenKey = "hengxinPluginSuite.githubToken";
 
 export async function activate(context: vscode.ExtensionContext): Promise<void> {
   const manifest = await readManifest(context);
@@ -26,6 +27,7 @@ export async function activate(context: vscode.ExtensionContext): Promise<void> 
     repo: "vscode-plugin-suite",
     displayName: "HengXin Plugin Suite",
     stateKeyPrefix: "hengxinPluginSuite.updater",
+    tokenProvider: () => context.secrets.get(githubTokenKey),
     components: manifest.components.map((component) => ({
       extensionId: component.id,
       displayName: component.displayName,
@@ -47,6 +49,7 @@ export async function activate(context: vscode.ExtensionContext): Promise<void> 
 
   context.subscriptions.push(
     vscode.commands.registerCommand("hengxinSuite.checkForUpdates", () => updater.checkForUpdates({ manual: true })),
+    vscode.commands.registerCommand("hengxinSuite.configureGitHubToken", () => configureGitHubToken(context)),
     vscode.commands.registerCommand("hengxinSuite.showComponents", () => showComponents(manifest)),
     vscode.workspace.onDidChangeConfiguration((event) => {
       if (event.affectsConfiguration("hengxinSuite.autoCheckUpdates")) {
@@ -55,6 +58,28 @@ export async function activate(context: vscode.ExtensionContext): Promise<void> 
     })
   );
   syncAutomaticChecks();
+}
+
+async function configureGitHubToken(context: vscode.ExtensionContext): Promise<void> {
+  const value = await vscode.window.showInputBox({
+    title: "配置 GitHub Token",
+    prompt: "用于提高 GitHub API 限额；Token 保存在 VS Code SecretStorage，不会写入 settings.json。留空可清除。",
+    password: true,
+    ignoreFocusOut: true
+  });
+  if (value === undefined) {
+    return;
+  }
+  if (!value.trim()) {
+    await context.secrets.delete(githubTokenKey);
+    await vscode.window.showInformationMessage("已清除 Suite Manager 的 GitHub Token。");
+    return;
+  }
+  await context.secrets.store(githubTokenKey, value.trim());
+  const picked = await vscode.window.showInformationMessage("GitHub Token 已安全保存。", "立即检查");
+  if (picked === "立即检查") {
+    await updater.checkForUpdates({ manual: true });
+  }
 }
 
 async function readManifest(context: vscode.ExtensionContext): Promise<SuiteManifest> {

@@ -2,7 +2,7 @@
   "name": "hengxin-plugin-suite",
   "displayName": "HengXin Plugin Suite",
   "description": "Unified update manager for the HengXin VS Code plugin suite.",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "publisher": "HengXin666",
   "license": "MIT",
   "repository": {
@@ -16,6 +16,7 @@
   "activationEvents": [
     "onStartupFinished",
     "onCommand:hengxinSuite.checkForUpdates",
+    "onCommand:hengxinSuite.configureGitHubToken",
     "onCommand:hengxinSuite.showComponents"
   ],
   "main": "./out/extension.js",
@@ -36,6 +37,11 @@
       {
         "command": "hengxinSuite.showComponents",
         "title": "HengXin Plugin Suite: 查看组件版本",
+        "category": "HengXin Plugin Suite"
+      },
+      {
+        "command": "hengxinSuite.configureGitHubToken",
+        "title": "HengXin Plugin Suite: 配置 GitHub Token",
         "category": "HengXin Plugin Suite"
       }
     ],
